@@ -6,7 +6,7 @@
 #include "DuckRadio.h"
 #include "DuckTypes.h"
 #include "DuckPacket.h"
-#include "DuckCrypto.h"
+//#include "DuckCrypto.h"
 #include "DuckUtils.h"
 #include "cdpcfg.h"
 #include <Arduino.h>
@@ -82,7 +82,10 @@ public:
   int setupRadio(float band = CDPCFG_RF_LORA_FREQ, int ss = CDPCFG_PIN_LORA_CS,
                   int rst = CDPCFG_PIN_LORA_RST, int di0 = CDPCFG_PIN_LORA_DIO0,
                   int di1 = CDPCFG_PIN_LORA_DIO1,
-                  int txPower = CDPCFG_RF_LORA_TXPOW);
+                  int txPower = CDPCFG_RF_LORA_TXPOW,
+                  float bw = CDPCFG_RF_LORA_BW,
+                  uint8_t sf = CDPCFG_RF_LORA_SF,
+                  uint8_t gain = CDPCFG_RF_LORA_GAIN);
 
   /**
    * @brief Set sync word used to communicate between radios. 0x12 for private and 0x34 for public channels.
@@ -221,6 +224,27 @@ public:
    * @param state true for on, false for off
    */
   void setEncrypt(bool state);
+
+  /**
+   * @brief get encryption state.
+   * 
+   * @return true for on, false for off
+   */
+  bool getEncrypt();
+
+  /**
+   * @brief Turn on or off decryption. Used with MamaDuck
+   * 
+   * @param state true for on, false for off
+   */
+  void setDecrypt(bool state);
+
+  /**
+   * @brief get decryption state.
+   * 
+   * @return true for on, false for off
+   */
+  bool getDecrypt();
 
   /**
    * @brief Set new AES key for encryption.

@@ -38,6 +38,7 @@
 #include "DuckEsp.h"
 #include "DuckRadio.h"
 #include "DuckUtils.h"
+#include "DuckCrypto.h"
 #include "OTAPage.h"
 #include "index.h"
 #include "wifiCredentials.h"
@@ -146,6 +147,10 @@ public:
    */
   int saveWifiCredentials(String ssid, String password);
   
+  int saveControlCredentials(String ssid, String password);
+
+  int loadControlCredentials();
+
   /**
    * @brief Load Wifi credentials from EEPROM
    * @return DUCK_ERR_NONE if successful, an error code otherwise.
@@ -165,6 +170,10 @@ public:
    * @param val  the password string to set
    */
   void setPassword(String val);
+
+  void setControlSsid(String val);
+
+  void setControlPassword(String val);
 
   /**
    * @brief Get the WiFi network ssid.
@@ -213,4 +222,6 @@ private:
   String portal = "";
   String ssid = "";
   String password = "";
+  char* controlSsid = "";
+  char* controlPassword = "";
 };
