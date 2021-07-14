@@ -50,6 +50,33 @@ String createUuid(int length = CDPCFG_UUID_LEN);
 String convertToHex(byte* data, int size);
 
 /**
+ * @brief Convert a vector into an ASCII string.
+ * 
+ * @param vec A vector to convert
+ * @returns A String representing the byte array in ASCII.
+ * 
+ */
+template<typename T>
+String toString(const std::vector<T> & vec) {
+  return std::string(vec.begin(), vec.end()).c_str();
+}
+
+/**
+ * @brief Compare two vectors with regard to both size and contents.
+ * 
+ * @param a The first vector
+ * @param b The second vector
+ * @returns True if a and b have the same size and contents, false if not.
+ */
+template<typename T>
+bool isEqual(const std::vector<T> & a, const std::vector<T> & b) {
+  if (a.size() != b.size()) {
+    return false;
+  }
+  return std::equal(a.begin(), a.end(), b.begin());
+}
+
+/**
  * @brief Get the Duck Interrupt state
  * 
  * @returns true if interrupt is enabled, false otherwise.
@@ -69,7 +96,7 @@ void setInterrupt(bool enable);
  * @param data byte array to convert
  * @returns a 32 bit unsigned integer.
  */
-uint32_t toUnit32(byte* data);
+uint32_t toUnit32(const byte* data);
 
 Timer<> getTimer();
 
